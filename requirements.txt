@@ -1,0 +1,6 @@
+pip install torch torchvision torchaudio
+pip install sentence-transformers
+pip install pandas numpy matplotlib
+pip install PyMuPDF scikit-learn
+pip install tqdm
+pip install PyMuPDF
