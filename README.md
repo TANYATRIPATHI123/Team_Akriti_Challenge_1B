@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Challenge 1b: Multi-Collection PDF Analysis
 
 ## Overview
@@ -91,3 +92,6 @@ Challenge_1b/
 ---
 
 **Note**: This README provides a brief overview of the Challenge 1b solution structure based on available sample data. 
+=======
+# Team_Akriti_Challenge_1B
+>>>>>>> d6967945c674f01d2284aae6730cf6046a4228a2
