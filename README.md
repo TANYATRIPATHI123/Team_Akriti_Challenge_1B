@@ -29,7 +29,7 @@ docker run --rm \\
   -v $(pwd)/input:/app/inputs \\
   -v $(pwd)/output:/app/outputs \\
   --network none \\
-  mysolutionname:somerandomidentifier
+  mysolution_final:v1
 
 
 
