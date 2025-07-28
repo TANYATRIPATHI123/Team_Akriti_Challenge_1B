@@ -1,6 +1,7 @@
-pip install torch torchvision torchaudio
-pip install sentence-transformers
-pip install pandas numpy matplotlib
-pip install PyMuPDF scikit-learn
-pip install tqdm
-pip install PyMuPDF
+numpy<2
+huggingface-hub<0.14
+sentence-transformers<2.3.0
+transformers<4.26.0
+datasets<2.10.0
+torch
+PyMuPDF

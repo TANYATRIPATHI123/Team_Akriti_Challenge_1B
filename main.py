@@ -105,8 +105,9 @@ def process_collection(collection_path: Path, output_dir: Path):
     print(f"Saved: {output_path}")
 
 def main():
-    input_root = Path("inputs")
-    output_root = Path("outputs")
+    input_root = Path("/app/input")
+    output_root = Path("/app/output")
+
     output_root.mkdir(exist_ok=True)
 
     collections = [p for p in input_root.iterdir() if p.is_dir()]
