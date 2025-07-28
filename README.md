@@ -1,97 +1,114 @@
-<<<<<<< HEAD
-# Challenge 1b: Multi-Collection PDF Analysis
+# PDF Semantic Extractor
 
-## Overview
-Advanced PDF analysis solution that processes multiple document collections and extracts relevant content based on specific personas and use cases.
+This project processes PDF documents to extract the *most relevant sections* based on a given *user persona* and a *task objective* using semantic similarity. It's packaged in a Docker container and is ready for evaluation with standardized input and output directories.
 
-## Project Structure
-```
-Challenge_1b/
-├── Collection 1/                    # Travel Planning
-│   ├── PDFs/                       # South of France guides
-│   ├── challenge1b_input.json      # Input configuration
-│   └── challenge1b_output.json     # Analysis results
-├── Collection 2/                    # Adobe Acrobat Learning
-│   ├── PDFs/                       # Acrobat tutorials
-│   ├── challenge1b_input.json      # Input configuration
-│   └── challenge1b_output.json     # Analysis results
-├── Collection 3/                    # Recipe Collection
-│   ├── PDFs/                       # Cooking guides
-│   ├── challenge1b_input.json      # Input configuration
-│   └── challenge1b_output.json     # Analysis results
-└── README.md
-```
+---
 
-## Collections
+## Features
 
-### Collection 1: Travel Planning
-- **Challenge ID**: round_1b_002
-- **Persona**: Travel Planner
-- **Task**: Plan a 4-day trip for 10 college friends to South of France
-- **Documents**: 7 travel guides
+- Uses SentenceTransformer (all-MiniLM-L6-v2) for semantic similarity.
+- Extracts meaningful text blocks from PDFs using PyMuPDF.
+- Ranks the most relevant sections according to user context (persona and job_to_be_done).
+- Outputs results in structured JSON format.
 
-### Collection 2: Adobe Acrobat Learning
-- **Challenge ID**: round_1b_003
-- **Persona**: HR Professional
-- **Task**: Create and manage fillable forms for onboarding and compliance
-- **Documents**: 15 Acrobat guides
+---
 
-### Collection 3: Recipe Collection
-- **Challenge ID**: round_1b_001
-- **Persona**: Food Contractor
-- **Task**: Prepare vegetarian buffet-style dinner menu for corporate gathering
-- **Documents**: 9 cooking guides
+## Docker Usage
 
-## Input/Output Format
+### 1. Build the Docker Image
 
-### Input JSON Structure
-```json
+bash
+docker build -t hackathon_solution
+
+
+### 2. Run the Container
+
+bash
+docker run --rm \\
+  -v $(pwd)/input:/app/inputs \\
+  -v $(pwd)/output:/app/outputs \\
+  --network none \\
+  mysolutionname:somerandomidentifier
+
+
+
+- input/: Should contain subfolders for each collection.
+- output/: Will contain one _output.json file for each collection processed.
+
+---
+
+## Input Folder Structure
+
+
+input/
+└── collection_1/
+    ├── input.json
+    └── PDFs/
+        ├── doc1.pdf
+        └── doc2.pdf
+└── collection_2/
+    ├── input.json
+    └── PDFs/
+        └── ...
+
+
+
+### input.json Format
+
+json
 {
-  "challenge_info": {
-    "challenge_id": "round_1b_XXX",
-    "test_case_name": "specific_test_case"
-  },
-  "documents": [{"filename": "doc.pdf", "title": "Title"}],
-  "persona": {"role": "User Persona"},
-  "job_to_be_done": {"task": "Use case description"}
+  "persona": { "role": "student" },
+  "job_to_be_done": { "task": "prepare for an exam" },
+  "documents": [
+    { "filename": "doc1.pdf" },
+    { "filename": "doc2.pdf" }
+  ]
 }
-```
 
-### Output JSON Structure
-```json
+
+
+## Output Format
+
+Each collection generates an output file named collectionname_output.json under the /output directory.
+
+### Example
+
+json
 {
   "metadata": {
-    "input_documents": ["list"],
-    "persona": "User Persona",
-    "job_to_be_done": "Task description"
+    "input_documents": ["doc1.pdf", "doc2.pdf"],
+    "persona": "student",
+    "job_to_be_done": "prepare for an exam",
+    "processing_timestamp": "2025-07-28T12:00:00"
   },
   "extracted_sections": [
     {
-      "document": "source.pdf",
-      "section_title": "Title",
+      "document": "doc1.pdf",
+      "section_title": "What is Reinforcement Learning...",
       "importance_rank": 1,
-      "page_number": 1
+      "page_number": 3
     }
   ],
   "subsection_analysis": [
     {
-      "document": "source.pdf",
-      "refined_text": "Content",
-      "page_number": 1
+      "document": "doc1.pdf",
+      "refined_text": "Reinforcement learning is a feedback-driven...",
+      "page_number": 3
     }
   ]
 }
-```
 
-## Key Features
-- Persona-based content analysis
-- Importance ranking of extracted sections
-- Multi-collection document processing
-- Structured JSON output with metadata
 
----
 
-**Note**: This README provides a brief overview of the Challenge 1b solution structure based on available sample data. 
-=======
-# Team_Akriti_Challenge_1B
->>>>>>> d6967945c674f01d2284aae6730cf6046a4228a2
+## Tech Stack
+
+- Python 3.10
+- PyMuPDF
+- SentenceTransformers
+- Torch (CPU)
+- Docker
+
+## Notes
+
+- No internet access is allowed inside the container (-network none).
+- Make sure all required PDFs and input.json are placed correctly before running.
