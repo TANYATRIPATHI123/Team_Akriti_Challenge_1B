@@ -18,7 +18,8 @@ This project processes PDF documents to extract the *most relevant sections* bas
 ### 1. Build the Docker Image
 
 bash
-docker build -t hackathon_solution
+docker build --platform linux/amd64 -t mysolution_final:v1 .
+
 
 
 ### 2. Run the Container
