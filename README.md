@@ -109,6 +109,3 @@ json
 - Docker
 
 ## Notes
-
-- No internet access is allowed inside the container (-network none).
-- Make sure all required PDFs and input.json are placed correctly before running.
